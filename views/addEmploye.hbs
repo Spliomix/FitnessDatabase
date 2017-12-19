@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <title>Welcome to Glitch!</title>
+    <meta name="description" content="A cool thing made with Glitch">
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="sytlesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <header>
+      <h1>
+        Angestellte
+      </h1>
+    </header>
+
+    <main>      
+      <table class="table table-dark table-hover">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Food</th>
+          <th>Training</th>
+          <th>Personalnummer</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{# each members}}
+            <tr>
+                <td>{{ this.id}}</td>
+                <td>{{ this.vorname }}</td>
+                <td>{{ this.nachname }}  </td>  
+                <td><a href="https://fitness-center.glitch.me/overviewFood?{{ this.id}}"><i class="fa fa-cutlery"></i></a> </td> 
+                <td><a href="https://fitness-center.glitch.me/overviewTrain?{{ this.id}}"><i class="fa fa-heart-o"></i></a> </td>
+                <td>{{ this.personalnummer }}  </td> 
+            </tr>
+        {{/each}}</output><br>
+      </tbody>
+      </table>
+      <div id="addMember">           
+        <button id="myBtn" class="btn btn-default">Neue/n Mitarbeiter/In anlegen</button>
+          <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <h2>Anmeldedaten</h2>
+              <!--<form action="/saveNewMember" method ="post">-->
+              <li>                
+                <input type="text" name="vorname" placeholder="Vorname" class="form-control">
+              </li>
+              <li> 
+                <input type="text" name="nachname" placeholder="Nachname" class="form-control">
+              </li>
+              <li>  
+                <input type="text" name="gewicht" placeholder="Gewicht" class="form-control">
+              </li>
+              <li>  
+                <input type="text" name="personalnummer" placeholder="Personalnummer" class="form-control">  
+              </li>
+              <li>  
+                <input type="text" name="rang" placeholder="rang 1-100" class="form-control">  <!--Tooltip needed-->
+              </li>
+              <li>               
+                   <button id="save">speichern</button>                              
+              </li>  
+              <!--</form>-->
+            </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>  
+      <div id="searchStartbtn">
+      </div>
+    </footer>
+
+    <!-- Your web-app is https, so your scripts need to be too -->
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
+            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+            crossorigin="anonymous"></script>
+    <script src="/client.js"></script>
+
+  </body>
+</html>
