@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <title>Welcome to Glitch!</title>
+    <meta name="description" content="A cool thing made with Glitch">
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="sytlesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <header>
+
+    </header>
+
+    <main>      
+      <h1>
+        Was wurde von <span id="placeholderNameOf"></span> trainiert
+      </h1>
+       <table class="table table-hover table-dark">
+        <thead>
+        <tr>
+          <th>Datum</th>
+          <th>Name</th>
+          <th>Kathegorie</th>
+          <th>Wiederholungen</th>
+          <th>Sätze</th>
+          <th>Gewicht</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{# each training}}
+            <tr>
+                <td>{{ this.datum}}</td>                        
+                <td>{{ this.name }}</td>  
+                <td>{{ this.kathegorie}}</td>  
+                <td>{{ this.reps }}</td>  
+                <td>{{ this.satz }}</td>  
+                <td>{{ this.gewicht }}kg</td>  
+            </tr>
+        {{/each}}
+      </tbody>
+      </table>
+             
+      <div id="addTrain">           
+        <button id="myBtn">Neues Training?</button>
+          <!-- The Modal -->
+        <div id="myModal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+              <span class="close">&times;</span>
+              <h2>Training</h2>
+             
+              <li>               
+                   <button id="save">speichern</button>                              
+              </li>  
+              <!--</form>-->
+            </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>     
+    </footer>
+
+    <!-- Your web-app is https, so your scripts need to be too -->
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
+            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+            crossorigin="anonymous"></script>
+    <script src="/client.js"></script>
+
+  </body>
+</html>
