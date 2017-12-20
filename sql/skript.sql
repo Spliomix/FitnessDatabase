@@ -3,6 +3,7 @@ CREATE TABLE menschen (
     vorname  VARCHAR2(20) CONSTRAINT menschen_vorname NOT NULL,
     nachname VARCHAR2(20) CONSTRAINT menschen_nachname NOT NULL,
     gewicht  NUMBER(20),
+    CONSTRAINT ck_gewicht CHECK (gewicht>0),
     CONSTRAINT PK_menschen PRIMARY KEY(id)
 );
 
@@ -54,7 +55,7 @@ CREATE TABLE training (
     datum              DATE,
     name               VARCHAR2(20),
     gewicht            NUMBER(10),
-    wiederholung       NUMBER(10),
+    wiederholung       NUMBER(10) DEFAULT 1,
     kategorie          VARCHAR2(20),
     PRIMARY KEY(id, datum, name)
 );
@@ -85,10 +86,32 @@ CREATE TABLE verkauft (
     anzahl integer,
     FOREIGN KEY (mitglieds_id) REFERENCES mitglied,
     FOREIGN KEY (angestellten_id) REFERENCES mitarbeiter,
-    FOREIGN KEY (produktname) REFERENCES produkt,
+    FOREIGN KEY (produktname) REFERENCES produkt ,
     PRIMARY KEY (mitglieds_id, angestellten_id, produktname)
 );
 
+
+
+INSERT INTO menschen VALUES(null, 'David', 'Coemert', 93);
+INSERT INTO menschen VALUES(null, 'Dasssvid', 'Codddemert', 93);
+INSERT INTO menschen VALUES(null, 'David', 'llll', 93);
+INSERT INTO menschen VALUES(null, 'Dasssvid', 'Cojjjjdddemert', 93);
+INSERT INTO mitarbeiter VALUES (1, 1, 6626);
+INSERT INTO mitarbeiter VALUES (2, 1, 6624);
+INSERT INTO mitglied VALUES (3,'01-Jan-2017', 0, 1234, null);
+INSERT INTO mitglied VALUES (4,'01-Jan-2017', 0, 1234, null);
+--view table
+CREATE VIEW view_name AS
+SELECT COUNT(personalnummer) as count, rang as rang
+FROM mitarbeiter
+GROUP BY rang
+HAVING COUNT(personalnummer)>0;
+
+
+CREATE VIEW view_join AS
+SELECT mitglied.id, menschen.vorname, menschen.nachname 
+FROM mitglied
+INNER JOIN menschen ON mitglied.id=menschen.id;
 
 
 /*
