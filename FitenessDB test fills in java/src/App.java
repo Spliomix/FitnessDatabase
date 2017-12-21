@@ -13,8 +13,8 @@ public class App {
         try {
             Class.forName("oracle.jdbc.driver.OracleDriver");
             String database = "jdbc:oracle:thin:@oracle-lab.cs.univie.ac.at:1521:lab";
-            String user = "a01225308";
-            String pass = "Sdhfsod1234";
+            String user = "";
+            String pass = "";
 
             // establish connection to database
             Connection con = DriverManager.getConnection(database, user, pass);
