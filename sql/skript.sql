@@ -23,21 +23,21 @@ CREATE SEQUENCE sequenz_id
 /
 
 CREATE TABLE mitglied (
-    id                  NUMBER(10) ,
+    mid                  NUMBER(10) ,
     anemdledatum         DATE,
     punkte               NUMBER(20),
     passwort             NUMBER(20),
     empfohlen            NUMBER(10) CONSTRAINT con_empfohlen REFERENCES mitglied,
-    CONSTRAINT PK_mitglied PRIMARY KEY (id),
-    CONSTRAINT FK_mitglied FOREIGN KEY(id) REFERENCES menschen ON DELETE CASCADE
+    CONSTRAINT PK_mitglied PRIMARY KEY (mid),
+    CONSTRAINT FK_mitglied FOREIGN KEY(mid) REFERENCES menschen ON DELETE CASCADE
 );
 
 CREATE TABLE mitarbeiter (
-    id NUMBER(10),
+    mid NUMBER(10),
     rang    NUMBER(2),
     personalnummer  NUMBER(4),
-    CONSTRAINT PK_mitarbeiter PRIMARY KEY (id),
-    CONSTRAINT FK_mitarbeiter FOREIGN KEY (id) REFERENCES menschen ON DELETE CASCADE
+    CONSTRAINT PK_mitarbeiter PRIMARY KEY (mid),
+    CONSTRAINT FK_mitarbeiter FOREIGN KEY (mid) REFERENCES menschen ON DELETE CASCADE
 );
 
 
@@ -46,7 +46,6 @@ CREATE TABLE gericht (
     fett          integer,
     protein       integer,
     kohlenhydrate integer,
-    menge         int,
     PRIMARY KEY (name)
 );
 
@@ -72,12 +71,13 @@ CREATE TABLE isst (
     id      NUMBER(10),
     name    VARCHAR2(20),
     datum   DATE,
+    menge   int,
     FOREIGN KEY (id) REFERENCES menschen,
     FOREIGN KEY (name) REFERENCES gericht,
-    PRIMARY KEY (id, name)
+    PRIMARY KEY (id, name, datum)
 );
 
-
+INSERT INTO isst VALUES(5, 'Pommes','01-Jan-2017', 23 );
 
 CREATE TABLE verkauft (
     mitglieds_id NUMBER(10),
@@ -92,14 +92,6 @@ CREATE TABLE verkauft (
 
 
 
-INSERT INTO menschen VALUES(null, 'David', 'Coemert', 93);
-INSERT INTO menschen VALUES(null, 'Dasssvid', 'Codddemert', 93);
-INSERT INTO menschen VALUES(null, 'David', 'llll', 93);
-INSERT INTO menschen VALUES(null, 'Dasssvid', 'Cojjjjdddemert', 93);
-INSERT INTO mitarbeiter VALUES (1, 1, 6626);
-INSERT INTO mitarbeiter VALUES (2, 1, 6624);
-INSERT INTO mitglied VALUES (3,'01-Jan-2017', 0, 1234, null);
-INSERT INTO mitglied VALUES (4,'01-Jan-2017', 0, 1234, null);
 --view table
 CREATE VIEW view_name AS
 SELECT COUNT(personalnummer) as count, rang as rang
@@ -109,12 +101,29 @@ HAVING COUNT(personalnummer)>0;
 
 
 CREATE VIEW view_join AS
-SELECT mitglied.id, menschen.vorname, menschen.nachname 
+SELECT mitglied.mid, menschen.vorname, menschen.nachname 
 FROM mitglied
-INNER JOIN menschen ON mitglied.id=menschen.id;
+INNER JOIN menschen ON mitglied.mid=menschen.id;
+
+CREATE VIEW view_member_node AS
+SELECT * 
+FROM mitglied
+FULL OUTER JOIN menschen ON mitglied.mid=menschen.id
+WHERE mitglied.mid=menschen.id;
+
+CREATE VIEW view_employe_node AS
+SELECT * 
+FROM mitarbeiter
+FULL OUTER JOIN menschen ON mitarbeiter.mid=menschen.id
+WHERE mitarbeiter.mid=menschen.id;
 
 
 /*
+SELECT * 
+from view_member_node 
+WHERE vorname='David' or nachname='';
+
+
 INSERT INTO menschen VALUES(1, 'David', 'Coemert', 93);
 INSERT INTO menschen VALUES(null, 'Dasssvid', 'Codddemert', 93);
 INSERT INTO mitarbeiter VALUES (1, 1, 6626);

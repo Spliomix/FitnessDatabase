@@ -10,3 +10,5 @@ DROP TABLE verkauft CASCADE CONSTRAINT;
 DROP SEQUENCE sequenz_id; 
 DROP VIEW view_name;
 DROP VIEW view_join;
+DROP VIEW view_member_node;
+DROP VIEW view_employe_node;
