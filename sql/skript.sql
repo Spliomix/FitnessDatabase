@@ -124,8 +124,8 @@ from view_member_node
 WHERE vorname='David' or nachname='';
 
 
-INSERT INTO menschen VALUES(1, 'David', 'Coemert', 93);
-INSERT INTO menschen VALUES(null, 'Dasssvid', 'Codddemert', 93);
+INSERT INTO menschen VALUES(1, 'David', 'asd', 93);
+INSERT INTO menschen VALUES(null, 'Dasssvid', 'rghhh', 93);
 INSERT INTO mitarbeiter VALUES (1, 1, 6626);
 INSERT INTO training VALUES(1, '01-Jan-2017', 'Dips', 300, 10, 'Push' );
 INSERT INTO training VALUES(1, '01-Jan-2017', 'Bank', 300, 10, 'Push' );
