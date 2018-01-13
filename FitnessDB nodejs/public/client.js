@@ -1,4 +1,5 @@
 // Get the modal
+var init=false;
 var modal = document.getElementById('myModal');
 // Get the button that opens the modal
 var btn = document.getElementById("myBtn");
@@ -11,9 +12,7 @@ var nname = document.getElementsByName("nachname")[0];
 var pwd = document.getElementsByName("passwort")[0];
 var weight = document.getElementsByName("gewicht")[0];
 var recomID = document.getElementsByName("empfohlen")[0];
-
 $(document).ready(function () {
-
     $.each($('.navbar').find('li'), function() {
       if($(this).find('a').attr('href') == window.location.href.split('#')[0]){
         $(this).addClass('active');
@@ -21,7 +20,87 @@ $(document).ready(function () {
         $(this).removeClass('active');
       }
     });
-  
+if (!init){
+
+if(window.location.href.split('?')[0]=="http://localhost:3000/profile"){
+     var data={"id":window.location.href.split('?')[1]};
+console.log(data.id);
+    $.ajax({
+      url : "http://localhost:3000/profileDataMember",
+      type: "POST",
+      dataType:'json',
+      data : data,
+      success: function(data){
+ 	      $("#id").text("ID: "+ data.profil[0].id );
+        $("#name").text("Name: "+data.profil[0].vorname+" "+data.profil[0].nachname);
+        $("#gewicht").text("Gewicht: "+data.profil[0].gewicht+"kg");
+        $("#date").text("Anmeldedatum: "+data.profil[0].anmeldedatum);
+if (data.profil[0].emfpholen!=null)
+$("#empfohlen").text("Empohlen von ID: "+data.profil[0].emfpholen);
+        $("#test-circle").circliful({
+          animation: 1,
+          animationStep: 5,
+          foregroundBorderWidth: 15,
+          backgroundBorderWidth: 15,
+          percent: data.profil[0].punkte/10,
+          textSize: 28,
+          textStyle: 'font-size: 12px;',
+          textColor: '#666',
+          multiPercentage: 1,
+          percentages: [10, 20, 30],
+	        text:"Punkte",
+	        textBelow:true
+        });       
+      },
+    });
+    $.ajax({
+      url : "http://localhost:3000/profileDataTraining",
+      type: "POST",
+      dataType:'json',
+      data : data,
+      success: function(data){
+        var elem = document.getElementById("myBarTrain");  
+        elem.style.backgroundColor = "Aquamarine"; 
+        var width = 0;
+        var id = setInterval(frame, 10);
+        function frame() {
+          if (width >= data.profil[0].trainiert) {
+            clearInterval(id);
+          } else {
+            width++; 
+            elem.style.width = width+ '%'; 
+            elem.innerHTML = width * 1;
+          }
+        }
+      },
+    });
+    $.ajax({
+      url : "http://localhost:3000/profileDataIsst",
+      type: "POST",
+      dataType:'json',
+      data : data,
+      success: function(data){
+        var elem = document.getElementById("myBarIsst"); 
+        elem.style.backgroundColor = "Crimson";  
+        var width = 0;
+        var id = setInterval(frame, 10);
+        function frame() {
+          if (width >= data.profil[0].isst) {
+            clearInterval(id);
+          } else {
+            width++; 
+            elem.style.width = width+ '%'; 
+            elem.innerHTML = width * 1;
+          }
+        }
+      },
+    });
+}
+
+
+
+}
+    init =true;
 });
 // When the user clicks on the button, open the modal 
 if(btn !== null){
@@ -60,7 +139,7 @@ if(btn !== null){
       $(nname).removeClass('error');
     }
 
-    if(pwd.value.length == 0){
+    if(pwd.value.length == 0 || isNaN(pwd.value)){//check if number
       $(pwd).addClass('error');
       error=true;
     }else{
@@ -71,14 +150,14 @@ if(btn !== null){
       $(modal).fadeOut();  
       var data={"vorname": vname.value, "nachname": nname.value, "pwd": pwd.value, "gewicht": weight.value, "empfohlen": recomID.value};
           $.ajax({
-              url : "https://fitness-center.glitch.me/ajax",
+              url : "http://localhost:3000/ajax",
               type: "POST",
               dataType:'json',
               data : data,
               success: function(data){
                 console.log(data.msg);
                 if(data.msg=="OK")
-                  window.location = "https://fitness-center.glitch.me/Member";
+                  window.location = "localhost:3000/Member";
                 else
                   alert("Server did not get the data")
 
@@ -135,17 +214,27 @@ window.onclick = function(event) {
     while (myNode.firstChild) {
       myNode.removeChild(myNode.firstChild);
     }
-      var data={"vorname": svname.value, "nachname": snname.value};
+	var error;
+      	var data={"vorname": svname.value, "nachname": snname.value};
+	
+	if(snname.value.length == 0 && svname.value.length == 0 ){
+	     	$(snname).addClass('error');
+		$(svname).addClass('error');
+	      error=true;
+	    }else{
+		error=false;
+	     	$(snname).removeClass('error');
+		$(svname).removeClass('error');
+	    }
+	if(!error)
           $.ajax({
-              url : "https://fitness-center.glitch.me/ajax/searchMember",
+              url : "http://localhost:3000/ajax/searchMember",
               type: "POST",
               dataType:'json',
               data : data,
               success: function(data){
                 //create Table
                 //maybe should be in a function?
-
-
                   var table = document.createElement("table");
                   table.className = "table table-hover";
                   var thead = document.createElement("thead");
@@ -156,8 +245,9 @@ window.onclick = function(event) {
                   tname[1] = document.createTextNode("Firstname");
                   tname[2] = document.createTextNode("Lastname");
                   tname[0] = document.createTextNode("ID");
+		              tname[3] = document.createTextNode("Anmdeldedatum");
                   var th=[];
-                  for (let i = 0; i < 3; ++i) { //Anzahl der Spalten
+                  for (let i = 0; i < 4; ++i) { //Anzahl der Spalten
                   th[i]= document.createElement("th");
                   tr.appendChild(th[i]);
                   th[i].appendChild(tname[i]);
@@ -174,13 +264,14 @@ window.onclick = function(event) {
                   for (let index = 0; index < data.smembers.length; ++index) { 
                     t[0] = document.createTextNode(data.smembers[index].id);                  
                     t[1] = document.createTextNode(data.smembers[index].vorname);
-                    t[2] = document.createTextNode(data.smembers[index].nachname);  
+                    t[2] = document.createTextNode(data.smembers[index].nachname);
+		                t[3] = document.createTextNode(data.smembers[index].anmeldedatum);   
                     tr[index] = document.createElement("tr"); 
                     tbody.appendChild(tr[index]);
                     a = document.createElement("a");
                     a.setAttribute("href", "#"+ data.smembers[index].id);
                     a.setAttribute("onclick", "doWork()");
-                    for (let i = 0; i < 3; ++i) { //Anzahl der Spalten
+                    for (let i = 0; i < 4; ++i) { //Anzahl der Spalten
                       td[i]= document.createElement("td");
                       tr[index].appendChild(td[i]); 
                       if(i){
@@ -212,3 +303,6 @@ setTimeout(function() {
 }, delayInMilliseconds);
  
 };
+
+
+

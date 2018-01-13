@@ -20,7 +20,13 @@ li {
 {
  border:1px solid red;
 }
+#addMember
+{
+   top:200px;
+  right: 0;
+   position:fixed;
 
+}
 .start{
      float: left;
      padding: 20px;
@@ -96,3 +102,35 @@ li {
     margin-left: auto;
     margin-right: auto 
 }
+
+
+.col-lg-2 {
+
+    text-align: center;
+    width: 1000px;  
+}
+
+.float {
+     display: inline-block;    
+     padding: 20px;   
+}
+
+#test-circle{
+    width:250px;
+}
+
+#id,#name,#gewicht,#date,#empfohlen{
+    float: left;
+color: black;
+text-decoration: none;
+font-size: 200%;
+}
+
+.w3-blue{color:#fff!important;background-color:#2196F3}
+.w3-center{text-align:center!important}
+.w3-light-grey,.w3-hover-light-grey:hover,.w3-light-gray,.w3-hover-light-gray:hover{color:#000!important;background-color:#f1f1f1!important}
+.w3-container:after,.w3-container:before,
+
+
+
+
