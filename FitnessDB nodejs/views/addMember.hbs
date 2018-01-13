@@ -29,12 +29,13 @@
       </thead>
       <tbody>
         {{# each members}}
-            <tr  onclick="window.location='https://fitness-center.glitch.me/profil?{{ this.id}}';">
-                <td>{{ this.id}}</td>
+           <!-- <tr  onclick="window.location='http://169.254.170.209:3000/profil?{{ this.id}}';">-->
+		<tr>
+                <td><a href="http://localhost:3000/profile?{{this.id}}">{{ this.id}}</td>
                 <td>{{ this.vorname }}</td>
                 <td>{{ this.nachname }}  </td>                         
-                <td><a href="https://fitness-center.glitch.me/overviewFood?{{ this.id}}"><i class="fa fa-cutlery"></i></a> </td> 
-                <td><a href="https://fitness-center.glitch.me/overviewTrain?{{ this.id}}"><i class="fa fa-heart-o"></i></a> </td>
+                <td><a href="http://localhost:3000/overviewFood?{{ this.id}}"><i class="fa fa-cutlery"></i></a> </td> 
+                <td><a href="http://localhost:3000/overviewTrain?{{ this.id}}"><i class="fa fa-heart-o"></i></a> </td>
             </tr>
         {{/each}}
       </tbody>
@@ -60,7 +61,7 @@
                 <input type="password" name="passwort" placeholder="Passwort" class="form-control">  
               </li>
               <li class="form-inline">                 
-                <input type="text" name="empfohlen" placeholder="empfholenID" class="form-control">
+                <input readonly type="text" name="empfohlen" placeholder="empfholenID" class="form-control">
                 <button id="searchbtn" class="btn btn-default" name="suche">suche</button>
               </li>
               <li>               

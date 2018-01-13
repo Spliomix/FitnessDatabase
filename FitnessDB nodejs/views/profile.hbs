@@ -1,0 +1,59 @@
+<html>
+  <head>
+    <title>Fitness Database</title>
+    <meta name="description" content="A cool thing made with Glitch">
+    <link id="favicon" rel="icon" href="https://glitch.com/edit/favicon-app.ico" type="image/x-icon">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="sytlesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://rawgit.com/pguso/jquery-plugin-circliful/1.0.2/css/jquery.circliful.css">
+  </head>
+  <body>
+    <header>
+      <h1>
+        Profil
+
+      </h1>
+    </header>
+
+    <main>      
+     <div class="col-lg-2">
+            <div class="float" id="test-circle"></div>
+            <div class="float" id="Textbox">
+              <p id="id">ID:</p> <br> <br> <br>
+              <p id="name">Name: </p> <br> <br> <br>
+              <p id="gewicht">Gewicht: </p> <br> <br> <br>
+              <p id="date">Anmeldedatum: </p> <br> <br> <br>
+              <p id="empfohlen"></p>
+            </div>
+                  <p>Anzahl der Trainings:</p>
+            <div class="w3-light-grey">
+              <div id="myBarTrain" class="w3-container w3-center"style="width:1%" >0%</div>
+            </div>
+            <br>
+		<p>Anzahl der Mahlzeiten:</p>
+            <div class="w3-light-grey">
+              <div id="myBarIsst" class="w3-container w3-center" style="width:1%">0%</div>
+            </div>
+            <br>
+      </div>
+    </main>
+
+    <footer>  
+      <div id="searchStartbtn">
+      </div>
+    </footer>
+
+    <!-- Your web-app is https, so your scripts need to be too -->
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"
+            integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+            crossorigin="anonymous"></script>
+    <script src="https://rawgit.com/pguso/jquery-plugin-circliful/1.0.2/js/jquery.circliful.js"></script>
+    <script src="/client.js"></script>
+
+
+  </body>
+</html>
+
