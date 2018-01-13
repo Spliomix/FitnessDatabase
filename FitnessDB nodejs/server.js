@@ -10,8 +10,8 @@ var expressHbs = require('express-handlebars');
 var url = require('url');
 var id;
 var oracledb = require('oracledb');
-var user="a01225308";
-var pwd="Sdhfsod1234";
+var user="";
+var pwd="";
 oracledb.maxRows = 10000;
 
 // view engine setup
